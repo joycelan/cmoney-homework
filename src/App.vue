@@ -1,125 +1,122 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "@/components/HelloWorld.vue";
+<script>
+import axios from "axios";
+import Table from "@/components/AppTable.vue";
+import Select from "@/components/AppSelector.vue";
+
+export default {
+  props: {},
+  components: {
+    Table,
+    Select,
+  },
+  data() {
+    return {
+      rawData: [],
+      info: [],
+      isLoading: true,
+      map: {},
+      city: "",
+      town: "",
+    };
+  },
+  computed: {
+    townList() {
+      if (!this.city) {
+        return [];
+      }
+      return this.map[this.city];
+    },
+    cityList() {
+      return Object.keys(this.map);
+    },
+  },
+  watch: {
+    city() {
+      console.log(this.city);
+      this.setInfo();
+    },
+    town() {
+      console.log(this.town);
+      this.setInfo();
+    },
+  },
+  methods: {
+    setCity(city) {
+      this.city = city;
+    },
+    setTown(town) {
+      this.town = town;
+    },
+    setInfo() {
+      this.info = this.rawData.filter((e) => {
+        if (!this.city) return true;
+        return this.town
+          ? e.City === this.city && e.Town === this.town
+          : e.City === this.city;
+      });
+      console.log(this.info, this.city, this.town);
+    },
+    setMap() {
+      this.info.forEach((e) => {
+        if (!this.map[e.City]) {
+          this.map[e.City] = [];
+        }
+        if (this.map[e.City].indexOf(e.Town) === -1) {
+          this.map[e.City].push(e.Town);
+        }
+      });
+    },
+    render(info) {
+      this.rawData = info;
+      this.setInfo();
+      this.setMap();
+    },
+    getInfo() {
+      axios
+        .get(
+          "https://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx"
+        )
+        .then((response) => {
+          // handle success
+          this.render(response.data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
+  },
+};
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <div>
+    <button @click="getInfo">
+      {{ "Get info" }}
+    </button>
+    <div class="nav">
+      <Select title="請選擇市" :options="cityList" @change="setCity" />
+      <Select title="請選擇鄉鎮區" :options="townList" @change="setTown" />
     </div>
-  </header>
 
-  <RouterView />
+    <Table :info="info" />
+  </div>
 </template>
 
 <style>
 @import "@/assets/base.css";
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
+.nav {
+  display: flex;
 }
 
 @media (min-width: 1024px) {
   body {
     display: flex;
     place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
   }
 }
 </style>
