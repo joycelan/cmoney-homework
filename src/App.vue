@@ -43,6 +43,7 @@ export default {
   methods: {
     setCity(city) {
       this.city = city;
+      this.town = '';
     },
     setTown(town) {
       this.town = town;
@@ -98,8 +99,8 @@ export default {
       {{ "Get info" }}
     </button>
     <div class="nav">
-      <Select title="請選擇市" :options="cityList" @change="setCity" />
-      <Select title="請選擇鄉鎮區" :options="townList" @change="setTown" />
+      <Select title="請選擇市" :options="cityList" @change="setCity" :value="city" />
+      <Select title="請選擇鄉鎮區" :options="townList" @change="setTown" :value="town"/>
     </div>
 
     <Table :info="info" />

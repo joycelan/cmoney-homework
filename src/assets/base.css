@@ -1,4 +1,15 @@
 :root {
   --normal-panel-bg: #d6d6d6;
+  --light-panel-bg: #f3f3f3;
+  --pale-panel-bg: #f9f9f9;
+  --hover-panel-bg: #eff4f7;
+  --normal-line: #ececec;
+  --active-panel-bg: #0da4d3;
+}
+
+.ellipsis {
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 

@@ -9,21 +9,24 @@ export default {
       type: String,
       default: "",
     },
+    value: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
-      selected: "",
       show: false,
     };
   },
-  watch: {},
+  watch: {
+  },
   methods: {
     toggle() {
       this.show = !this.show;
     },
     selectItem(option) {
       this.show = false;
-      this.selected = option;
       this.$emit("change", option);
     },
   },
@@ -33,7 +36,7 @@ export default {
 <template>
   <div class="selector">
     <div class="title" @click="toggle">
-      {{ selected || title }}
+      {{ value || title }}
     </div>
     <div class="dropdown" v-show="show">
       <span v-for="option in options" @click="selectItem(option)" :key="option">
