@@ -2,12 +2,14 @@
 import ModeSwitch from "./table/ModeSwitch.vue";
 import ListSnapView from "./table/ListSnapView.vue";
 import ListView from "./table/ListView.vue";
+import GridView from "./table/GridView.vue";
 
 export default {
   components: {
     ModeSwitch,
     ListSnapView,
     ListView,
+    GridView,
   },
   props: {
     info: {
@@ -50,8 +52,9 @@ export default {
 
 <template>
   <ModeSwitch :options="modeList" :value="mode" @change="setMode" />
-  <ListView v-if="mode === 'list'" :info="pageInfo" />
   <ListSnapView v-if="mode === 'snap'" :info="pageInfo" />
+  <ListView v-else-if="mode === 'list'" :info="pageInfo" />
+  <GridView v-else :info="pageInfo" />
   <div class="footer">
     <div>
       {{ `美食頁次 ${pageIndex}/${pageCount}` }}
