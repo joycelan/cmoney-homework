@@ -19,8 +19,7 @@ export default {
       show: false,
     };
   },
-  watch: {
-  },
+  watch: {},
   methods: {
     toggle() {
       this.show = !this.show;
@@ -39,7 +38,7 @@ export default {
       <div class="title">
         {{ value || title }}
       </div>
-      <div class="arrow" :class="{opened: show}"></div>
+      <div class="arrow" :class="{ opened: show }"></div>
     </div>
 
     <div class="dropdown" v-show="show">

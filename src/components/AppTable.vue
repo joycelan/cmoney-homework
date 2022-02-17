@@ -1,5 +1,10 @@
 <script>
+import ModeSwitch from "@/components/AppTableModeSwitch.vue";
+
 export default {
+  components: {
+    ModeSwitch,
+  },
   props: {
     info: {
       type: Array,
@@ -10,16 +15,18 @@ export default {
     return {
       countPerPage: 10,
       pageIndex: 1,
+      mode: "list",
+      modeList: ["list", "grid", "card"],
     };
   },
   watch: {
     info() {
       this.pageIndex = 1;
-    }
+    },
   },
   computed: {
     pageInfo() {
-      const pad = (this.pageIndex -1) * this.countPerPage;
+      const pad = (this.pageIndex - 1) * this.countPerPage;
       return this.info.slice(pad, pad + this.countPerPage);
     },
     pageCount() {
@@ -27,6 +34,9 @@ export default {
     },
   },
   methods: {
+    setMode(mode) {
+      this.mode = mode;
+    },
     setPage(index) {
       this.pageIndex = index;
     },
@@ -35,6 +45,7 @@ export default {
 </script>
 
 <template>
+  <ModeSwitch :options="modeList" :value="mode" @change="setMode" />
   <table class="table">
     <thead></thead>
     <tbody>
@@ -62,7 +73,7 @@ export default {
     </div>
     <div
       class="page"
-      :class="{active: pageIndex === index}"
+      :class="{ active: pageIndex === index }"
       v-for="index in pageCount"
       :key="index"
       @click="setPage(index)"
