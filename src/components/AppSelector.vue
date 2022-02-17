@@ -35,9 +35,13 @@ export default {
 
 <template>
   <div class="selector">
-    <div class="title" @click="toggle">
-      {{ value || title }}
+    <div class="title-panel" @click="toggle">
+      <div class="title">
+        {{ value || title }}
+      </div>
+      <div class="arrow" :class="{opened: show}"></div>
     </div>
+
     <div class="dropdown" v-show="show">
       <span v-for="option in options" @click="selectItem(option)" :key="option">
         {{ option }}
@@ -50,13 +54,38 @@ export default {
 @import "@/assets/base.css";
 
 .selector {
-  width: 200px;
   display: block;
   position: relative;
-}
-.title {
   background: var(--normal-panel-bg);
-  width: 100%;
+  cursor: pointer;
+}
+.title-panel {
+  display: flex;
+  width: 200px;
+  height: 50px;
+  margin-left: 20px;
+
+  .title {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    line-height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .arrow {
+    width: 0;
+    height: 0;
+    margin: 10px;
+    margin-top: 20px;
+    border-style: solid;
+    border-width: 8px 5px 0 5px;
+    border-color: #000000 transparent transparent transparent;
+    &.opened {
+      border-width: 0 5px 8px 5px;
+      border-color: transparent transparent #000000 transparent;
+    }
+  }
 }
 .dropdown {
   display: block;
@@ -66,6 +95,8 @@ export default {
   span {
     display: block;
     width: 100%;
+    line-height: 50px;
+    margin-left: 20px;
   }
 }
 </style>

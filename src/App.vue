@@ -99,7 +99,7 @@ export default {
       {{ "Get info" }}
     </button>
     <div class="nav">
-      <Select title="請選擇市" :options="cityList" @change="setCity" :value="city" />
+      <Select title="請選擇行政區域" :options="cityList" @change="setCity" :value="city" />
       <Select title="請選擇鄉鎮區" :options="townList" @change="setTown" :value="town"/>
     </div>
 
