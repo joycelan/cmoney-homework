@@ -1,9 +1,13 @@
 <script>
-import ModeSwitch from "@/components/AppTableModeSwitch.vue";
+import ModeSwitch from "./table/ModeSwitch.vue";
+import ListSnapView from "./table/ListSnapView.vue";
+import ListView from "./table/ListView.vue";
 
 export default {
   components: {
     ModeSwitch,
+    ListSnapView,
+    ListView,
   },
   props: {
     info: {
@@ -15,8 +19,8 @@ export default {
     return {
       countPerPage: 10,
       pageIndex: 1,
-      mode: "list",
-      modeList: ["list", "grid", "card"],
+      mode: "snap",
+      modeList: ["snap", "list", "card"],
     };
   },
   watch: {
@@ -46,27 +50,8 @@ export default {
 
 <template>
   <ModeSwitch :options="modeList" :value="mode" @change="setMode" />
-  <table class="table">
-    <thead></thead>
-    <tbody>
-      <tr>
-        <th>編號</th>
-        <th>行政區域</th>
-        <th>鄉鎮區</th>
-        <th>商家</th>
-        <th>地址</th>
-      </tr>
-      <tr v-for="(item, key) in pageInfo" :key="key" class="content">
-        <td>{{ item.ID }}</td>
-        <td>{{ item.City }}</td>
-        <td>{{ item.Town }}</td>
-        <td>{{ item.Name }}</td>
-        <td :title="item.Address" class="address ellipsis">
-          {{ item.Address }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ListView v-if="mode === 'list'" :info="pageInfo" />
+  <ListSnapView v-if="mode === 'snap'" :info="pageInfo" />
   <div class="footer">
     <div>
       {{ `美食頁次 ${pageIndex}/${pageCount}` }}
@@ -86,32 +71,6 @@ export default {
 <style scoped lang="less">
 @import "@/assets/base.css";
 
-.table {
-  border-collapse: collapse;
-  tr {
-    line-height: 40px;
-    border: 1px solid;
-    &.content:nth-child(odd) {
-      background: var(--pale-panel-bg);
-    }
-    &.content:hover {
-      background: var(--hover-panel-bg);
-    }
-  }
-  td,
-  th {
-    border: 1px solid;
-    border-color: var(--normal-line);
-    padding: 0 20px;
-    text-align: center;
-  }
-  th {
-    background: var(--light-panel-bg);
-  }
-  td {
-    max-width: 100px;
-  }
-}
 .footer {
   display: flex;
   div {

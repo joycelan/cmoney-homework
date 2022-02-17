@@ -5,6 +5,8 @@
   --hover-panel-bg: #eff4f7;
   --normal-line: #ececec;
   --active-panel-bg: #0da4d3;
+  --hover-text-color: #2fb1da;
+  --normal-text-color: #9a9b9b;
 }
 
 .ellipsis {
