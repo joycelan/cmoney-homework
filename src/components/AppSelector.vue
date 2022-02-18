@@ -57,6 +57,8 @@ export default {
   position: relative;
   background: var(--normal-panel-bg);
   cursor: pointer;
+  margin: 10px;
+  width: 240px;
 }
 .title-panel {
   display: flex;
@@ -91,6 +93,7 @@ export default {
   background: white;
   position: absolute;
   width: 100%;
+  z-index: 9999;
   span {
     display: block;
     width: 100%;

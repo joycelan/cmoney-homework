@@ -143,8 +143,4 @@ export default {
     width: 300px;
   }
 }
-.selector {
-  width: 240px;
-  margin: 10px;
-}
 </style>

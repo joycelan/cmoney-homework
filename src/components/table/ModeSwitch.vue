@@ -48,6 +48,7 @@ export default {
 
 .mode-switch {
   display: flex;
+  margin: 10px;
   div {
     margin: 5px;
     line-height: 30px;
@@ -57,6 +58,7 @@ export default {
       background: var(--light-panel-bg);
       text-align: center;
       cursor: pointer;
+      padding: 0 10px;
       &.active {
         background: var(--active-panel-bg);
       }
