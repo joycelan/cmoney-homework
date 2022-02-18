@@ -15,10 +15,7 @@ export default {
   methods: {
     handleScroll() {
       const element = document.getElementsByClassName("lastAd")[0];
-      if (this.isFixed) {
-        // float over viewport code here
-        return;
-      }
+
       const rect = element.getBoundingClientRect();
       const html = document.documentElement;
       if (
@@ -41,7 +38,7 @@ export default {
       :key="index"
       class="item"
       v-show="(index == count && isFixed) || !isFixed"
-      :class="{ lastAd: index === count }"
+      :class="{ lastAd: index === count, fixed: isFixed && index == count }"
     ></div>
   </div>
 </template>
@@ -54,11 +51,18 @@ export default {
   flex-direction: column;
 }
 .item {
+  flex: 1;
   height: 500px;
   margin: 10px;
   background-color: blue;
   &.lastAd {
     background-color: red;
+    &.fixed {
+      position: fixed;
+      top: 0;
+      height: 80vh;
+      width: 280px; /* FIX ME */
+    }
   }
 }
 </style>
