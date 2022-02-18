@@ -42,6 +42,9 @@ export default {
       this.setInfo();
     },
   },
+  mounted() {
+    this.getInfo();
+  },
   methods: {
     setCity(city) {
       this.city = city;
@@ -82,6 +85,7 @@ export default {
         .then((response) => {
           // handle success
           this.render(response.data);
+          this.isLoading = false;
         })
         .catch(function (error) {
           // handle error
@@ -96,28 +100,28 @@ export default {
 </script>
 
 <template>
-  <div class="main">
-    <button @click="getInfo">
-      {{ "Get info" }}
-    </button>
-    <div class="nav">
-      <Select
-        title="請選擇行政區域"
-        :options="cityList"
-        @change="setCity"
-        :value="city"
-      />
-      <Select
-        title="請選擇鄉鎮區"
-        :options="townList"
-        @change="setTown"
-        :value="town"
-      />
-    </div>
+  <div v-if="isLoading" class="load">{{ "Loading..." }}</div>
+  <div v-else class="app">
+    <div class="main">
+      <div class="nav">
+        <Select
+          title="請選擇行政區域"
+          :options="cityList"
+          @change="setCity"
+          :value="city"
+        />
+        <Select
+          title="請選擇鄉鎮區"
+          :options="townList"
+          @change="setTown"
+          :value="town"
+        />
+      </div>
 
-    <Table :info="info" />
+      <Table :info="info" />
+    </div>
+    <AdPanel class="ad" />
   </div>
-  <AdPanel class="ad" />
 </template>
 
 <style lang="less">
@@ -126,9 +130,14 @@ export default {
 #app {
   width: 100%;
   height: 100%;
-  display: flex;
+  .app {
+    display: flex;
+  }
   .main {
     flex: 1;
+    .nav {
+      display: flex;
+    }
   }
   .ad {
     width: 300px;
@@ -136,12 +145,6 @@ export default {
 }
 .selector {
   width: 240px;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+  margin: 10px;
 }
 </style>
