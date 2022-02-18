@@ -2,12 +2,14 @@
 import axios from "axios";
 import Table from "@/components/AppTable.vue";
 import Select from "@/components/AppSelector.vue";
+import AdPanel from "@/components/AppAdPanel.vue";
 
 export default {
   props: {},
   components: {
     Table,
     Select,
+    AdPanel,
   },
   data() {
     return {
@@ -94,7 +96,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="main">
     <button @click="getInfo">
       {{ "Get info" }}
     </button>
@@ -115,13 +117,25 @@ export default {
 
     <Table :info="info" />
   </div>
+  <AdPanel class="ad" />
 </template>
 
-<style>
+<style lang="less">
 @import "@/assets/base.css";
 
-.nav {
+#app {
+  width: 100%;
+  height: 100%;
   display: flex;
+  .main {
+    flex: 1;
+  }
+  .ad {
+    width: 300px;
+  }
+}
+.selector {
+  width: 240px;
 }
 
 @media (min-width: 1024px) {
