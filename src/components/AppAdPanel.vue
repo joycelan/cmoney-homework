@@ -51,7 +51,6 @@ export default {
   flex-direction: column;
 }
 .item {
-  flex: 1;
   height: 500px;
   margin: 10px;
   background-color: blue;

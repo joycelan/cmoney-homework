@@ -60,7 +60,6 @@ export default {
   }
   .head {
     margin: 0 10px 0 10px;
-    flex: 1;
     display: flex;
     flex-direction: column;
     .city {
@@ -79,6 +78,7 @@ export default {
   }
   .content {
     display: flex;
+    flex: 1;
     background-color: white;
     padding: 10px;
     &:hover {

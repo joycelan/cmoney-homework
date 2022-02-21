@@ -57,12 +57,17 @@ export default {
   position: relative;
   background: var(--normal-panel-bg);
   cursor: pointer;
-  margin: 10px;
   width: 240px;
 }
+
+@media (max-width: 768px) {
+  .selector {
+    width: 100%;
+  }
+}
+
 .title-panel {
   display: flex;
-  width: 200px;
   height: 50px;
   margin-left: 20px;
 

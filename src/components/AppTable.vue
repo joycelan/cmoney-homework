@@ -76,6 +76,9 @@ export default {
 
 .footer {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px 0;
   div {
     margin: 5px;
     line-height: 30px;

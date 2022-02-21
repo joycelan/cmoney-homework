@@ -100,8 +100,10 @@ export default {
 </script>
 
 <template>
-  <div v-if="isLoading" class="load">{{ "Loading..." }}</div>
-  <div v-else class="app">
+  <div v-show="isLoading" class="loading">
+    <img src="https://www.intogif.com/resource/image/loading/default.gif" />
+  </div>
+  <div class="app">
     <div class="main">
       <div class="nav">
         <Select
@@ -118,7 +120,9 @@ export default {
         />
       </div>
 
-      <Table :info="info" />
+      <div class="table-content">
+        <Table :info="info" />
+      </div>
     </div>
     <AdPanel class="ad" />
   </div>
@@ -130,6 +134,16 @@ export default {
 #app {
   width: 100%;
   height: 100%;
+  .loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    opacity: 50%;
+    img {
+      margin: calc(50% - 50px);
+    }
+  }
   .app {
     display: flex;
   }
@@ -137,10 +151,23 @@ export default {
     flex: 1;
     .nav {
       display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      > .selector {
+        margin: 10px;
+      }
+    }
+    .table-content {
+      margin: 10px;
     }
   }
   .ad {
     width: 300px;
+  }
+  @media (max-width: 768px) {
+    .ad {
+      display: none;
+    }
   }
 }
 </style>

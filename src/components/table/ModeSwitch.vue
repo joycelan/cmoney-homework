@@ -48,7 +48,9 @@ export default {
 
 .mode-switch {
   display: flex;
-  margin: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
   div {
     margin: 5px;
     line-height: 30px;

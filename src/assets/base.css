@@ -15,3 +15,7 @@
   text-overflow: ellipsis;
 }
 
+body {
+  margin: 0;
+}
+

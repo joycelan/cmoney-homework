@@ -85,6 +85,12 @@ export default {
       background-size: 130%;
     }
   }
+
+  @media (max-width: 768px) {
+    .item {
+      width: 100%;
+    }
+  }
   .info {
     .head {
       margin: 0 10px 0 10px;

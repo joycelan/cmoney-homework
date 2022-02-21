@@ -12,12 +12,12 @@ export default {
 <template>
   <table class="table">
     <thead>
-      <tr>
-        <th>編號</th>
-        <th>行政區域</th>
-        <th>鄉鎮區</th>
-        <th>商家</th>
-        <th>地址</th>
+      <tr class="header">
+        <td>編號</td>
+        <td>行政區域</td>
+        <td>鄉鎮區</td>
+        <td>商家</td>
+        <td class="address">地址</td>
       </tr>
     </thead>
 
@@ -27,7 +27,7 @@ export default {
         <td>{{ item.City }}</td>
         <td>{{ item.Town }}</td>
         <td>{{ item.Name }}</td>
-        <td :title="item.Address" class="address ellipsis">
+        <td :title="item.Address" class="ellipsis">
           {{ item.Address }}
         </td>
       </tr>
@@ -50,15 +50,17 @@ export default {
       background: var(--hover-panel-bg);
     }
   }
-  td,
-  thead th {
+  td {
     border: 1px solid;
     border-color: var(--normal-line);
-    padding: 0 20px;
+    padding: 0 10px;
     text-align: center;
   }
-  thead th {
+  .header td {
     background: var(--light-panel-bg);
+    &.address {
+      width: 50%;
+    }
   }
   td {
     max-width: 100px;
