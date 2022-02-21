@@ -39,7 +39,9 @@ export default {
       class="item"
       v-show="(index == count && isFixed) || !isFixed"
       :class="{ lastAd: index === count, fixed: isFixed && index == count }"
-    ></div>
+    >
+      <img :src="`src/assets/adv${index}.png`" />
+    </div>
   </div>
 </template>
 
@@ -51,11 +53,11 @@ export default {
   flex-direction: column;
 }
 .item {
-  height: 500px;
   margin: 10px;
-  background-color: blue;
+  img {
+    width: 100%;
+  }
   &.lastAd {
-    background-color: red;
     &.fixed {
       position: fixed;
       top: 0;
